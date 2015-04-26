@@ -99,14 +99,15 @@ class Keywords:
                 k = 0
                 ranklistresult = int(ranklistresult[ranklistresult.index('of'):].replace('of ', '').replace(' results', '').replace(',', ''))
                 print "Total:", ranklistresult
+                ranklistresult = 1000
                 while start <= ranklistresult:
                     url = "http://academic.research.microsoft.com/RankList?entitytype=8&topDomainID={0}&subDomainID={1}&last=0&start={2}&end={3}".format(topDomainID, subDomainID, start, end)
                     rows = None
-                    while rows == None:
+                    while rows == None or rows == [] or rows == '':
                         browser  = random.choice(browsers)
                         browser.get(url)
                         rows = find_elements_by_tag_name(browser, 'tr')
-                        if rows == None:
+                        if rows == None or rows == [] or rows == '':
                             t = random.randrange(pow(2, k))*random.random()
                             print "Retrying in",t,"seconds"
                             time.sleep(t)
